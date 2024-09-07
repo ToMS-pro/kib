@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tabel Lokasi dengan Gambar</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        .search-container {
+            width: 100%;
+            margin: 0 auto 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        input[type="text"] {
+            width: 50%;
+            padding: 12px;
+            border-radius: 25px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+            outline: none;
+            box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        input[type="text"]:hover {
+            border-color: #5a52d6;
+            box-shadow: 0px 4px 10px rgba(108, 99, 255, 0.5);
+            transition: all 0.3s ease;
+        }
+
+        input[type="text"]:focus {
+            border-color: #6c63ff;
+            box-shadow: 0px 4px 8px rgba(108, 99, 255, 0.4);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1);
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #6c63ff;
+            color: white;
+            font-size: 16px;
+        }
+
+        td {
+            border-bottom: 1px solid #ddd;
+        }
+
+        tr:hover {
+            background-color: #e6e6ff;
+            transition: background-color 0.3s ease;
+        }
+
+        @media only screen and (max-width: 600px) {
+            input[type="text"] {
+                width: 80%;
+            }
+
+            th, td {
+                font-size: 14px;
+            }
+        }
+
+        .image-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .image-container img {
+            width: 50%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .image-container img:hover {
+            transform: scale(1.05);
+            transition: transform 0.3s ease;
+        }
+    </style>
+    <script>
+        function searchTable() {
+            var input, filter, table, tr, td, i, j, txtValue;
+            input = document.getElementById("searchInput");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("locationTable");
+            tr = table.getElementsByTagName("tr");
+
+            for (i = 1; i < tr.length; i++) {
+                tr[i].style.display = "none";
+                td = tr[i].getElementsByTagName("td");
+                for (j = 0; j < td.length; j++) {
+                    if (td[j]) {
+                        txtValue = td[j].textContent || td[j].innerText;
+                        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                            tr[i].style.display = "";
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+
+    <h2>Daftar Lokasi</h2>
+
+    <div class="search-container">
+        <input type="text" id="searchInput" onkeyup="searchTable()" placeholder="Cari lokasi...">
+    </div>
+
+    <table id="locationTable">
+        <thead>
+            <tr>
+                <th>Provinsi</th>
+                <th>Kab / Kota</th>
+                <th>Cabang / Perwakilan</th>
+                <th>Kode Wilayah</th>
+                <th>Alamat</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Banten</td>
+                <td>Kabupaten Pandeglang</td>
+                <td>Pandeglang</td>
+                <td>PDL</td>
+                <td>Jl. Raya Serang - Pandeglang, Kel/Desa Kadumerak, Kec. Karang Tanjung, Kab. Pandeglang, Prov. Banten (Samping Dealer Honda)</td>
+            </tr>
+            <tr>
+                <td>Banten</td>
+                <td>Kota Serang</td>
+                <td>Serang</td>
+                <td>SER</td>
+                <td>Jl. Jend. Sudirman no. 7, Lingkungan Ciceri Jaya Rt. 01 Rw.07, Kec. Serang, Kota Serang, Prov. Banten</td>
+            </tr>
+            <tr>
+                <td>Banten</td>
+                <td>Kota Tangerang</td>
+                <td>Tangerang</td>
+                <td>TGR</td>
+                <td>Jl. Gatot Subroto no.27 Rt.005 Rw.001, Cimone, Kec. Karawaci, Kota Tangerang, Prov. Banten (Samping kampus BSI)</td>
+            </tr>
+            <tr>
+                <td>Banten</td>
+                <td>Kota Tangerang Selatan</td>
+                <td>Serpong</td>
+                <td>SRP</td>
+                <td>Jl. Raya Serpong KM. 8 nomor 88, Kel/Desa Pakulonan, Kec. Serpong Utara, Kota Tangerang Selatan, Prov. Banten</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="image-container">
+        <h3>Gambar Lokasi</h3>
+        <img src="https://drive.google.com/uc?export=view&id=1e9sVIHygcagNYK0FKUNqWXh9gKvXg61y" alt="Gambar Lokasi">
+    </div>
+
+</body>
+</html>
