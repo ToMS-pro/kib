@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tabel Lokasi dengan Gambar</title>
+    <title>Tabel Lokasi dengan Gambar, Nomor Telepon, dan Tambah Baris</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -106,31 +106,70 @@
     </style>
     <script>
         function searchTable() {
-            var input, filter, table, tr, td, i, j, txtValue;
+            var input, filter, table, tr, td, i, j, txtValue, found;
             input = document.getElementById("searchInput");
             filter = input.value.toUpperCase();
             table = document.getElementById("locationTable");
             tr = table.getElementsByTagName("tr");
 
+            var noResultRow = document.getElementById("noResultRow");
+            if (noResultRow) {
+                noResultRow.remove();
+            }
+
+            found = false;
             for (i = 1; i < tr.length; i++) {
-                tr[i].style.display = "none";
+                tr[i].style.display = "none"; 
                 td = tr[i].getElementsByTagName("td");
                 for (j = 0; j < td.length; j++) {
                     if (td[j]) {
                         txtValue = td[j].textContent || td[j].innerText;
                         if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                            tr[i].style.display = "";
+                            tr[i].style.display = ""; 
+                            found = true;
                             break;
                         }
                     }
                 }
             }
+
+            if (!found) {
+                var newRow = table.insertRow();
+                newRow.id = "noResultRow";
+                var cell = newRow.insertCell(0);
+                cell.colSpan = 6; 
+                cell.style.textAlign = "center";
+                cell.innerHTML = "Data tidak ditemukan";
+            }
+        }
+
+        function addRow() {
+            var table = document.getElementById("locationTable");
+            var newRow = table.insertRow();
+            
+            var cell1 = newRow.insertCell(0);
+            var cell2 = newRow.insertCell(1);
+            var cell3 = newRow.insertCell(2);
+            var cell4 = newRow.insertCell(3);
+            var cell5 = newRow.insertCell(4);
+            var cell6 = newRow.insertCell(5);
+            
+            cell1.innerHTML = "Jawa Barat";
+            cell2.innerHTML = "Kota Bandung";
+            cell3.innerHTML = "Bandung";
+            cell4.innerHTML = "BDG";
+            cell5.innerHTML = "Jl. ABC No. 123, Kota Bandung, Prov. Jawa Barat";
+            cell6.innerHTML = "022-1234567, 022-7654321";
         }
     </script>
 </head>
 <body>
 
-    <h2>Daftar Lokasi</h2>
+    <div class="image-container">
+        <img src="https://assets.onecompiler.app/42rfqxjyt/42rfqjkuv/kop%20id.png" alt="Logo">
+    </div>
+
+    <h2>Daftar Lokasi dengan Nomor Telepon</h2>
 
     <div class="search-container">
         <input type="text" id="searchInput" onkeyup="searchTable()" placeholder="Cari lokasi...">
@@ -144,6 +183,7 @@
                 <th>Cabang / Perwakilan</th>
                 <th>Kode Wilayah</th>
                 <th>Alamat</th>
+                <th>Nomor Telepon</th>
             </tr>
         </thead>
         <tbody>
@@ -153,6 +193,7 @@
                 <td>Pandeglang</td>
                 <td>PDL</td>
                 <td>Jl. Raya Serang - Pandeglang, Kel/Desa Kadumerak, Kec. Karang Tanjung, Kab. Pandeglang, Prov. Banten (Samping Dealer Honda)</td>
+                <td>021-5551234, 021-5556789, 021-5559876</td>
             </tr>
             <tr>
                 <td>Banten</td>
@@ -160,6 +201,7 @@
                 <td>Serang</td>
                 <td>SER</td>
                 <td>Jl. Jend. Sudirman no. 7, Lingkungan Ciceri Jaya Rt. 01 Rw.07, Kec. Serang, Kota Serang, Prov. Banten</td>
+                <td>021-5555678, 021-5552345, 021-5558765</td>
             </tr>
             <tr>
                 <td>Banten</td>
@@ -167,6 +209,7 @@
                 <td>Tangerang</td>
                 <td>TGR</td>
                 <td>Jl. Gatot Subroto no.27 Rt.005 Rw.001, Cimone, Kec. Karawaci, Kota Tangerang, Prov. Banten (Samping kampus BSI)</td>
+                <td>021-5559876, 021-5556543, 021-5553456</td>
             </tr>
             <tr>
                 <td>Banten</td>
@@ -174,14 +217,12 @@
                 <td>Serpong</td>
                 <td>SRP</td>
                 <td>Jl. Raya Serpong KM. 8 nomor 88, Kel/Desa Pakulonan, Kec. Serpong Utara, Kota Tangerang Selatan, Prov. Banten</td>
+                <td>021-5554321, 021-5558765, 021-5553210</td>
             </tr>
         </tbody>
     </table>
 
-    <div class="image-container">
-        <h3>Gambar Lokasi</h3>
-        <img src="https://assets.onecompiler.app/42rfqxjyt/42rfqjkuv/kop%20id.png" alt="Gambar Lokasi">
-    </div>
+    <button onclick="addRow()">Tambah Baris</button>
 
 </body>
 </html>
